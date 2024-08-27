@@ -1,18 +1,23 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'json'
 
+# GamesController
 class GamesController < ApplicationController
   def new
-    def self.generate_grid(grid_size)
+    # self.class.class_eval do
+    def generate_grid(grid_size)
       Array.new(grid_size) { ('A'..'Z').to_a.sample }
     end
     @letters = generate_grid(10)
     session[:letters] = @letters
+    # end
   end
 
   def score
     @letters = session[:letters]
-    # puts "#{@letters} @letters"
+
     def validate_word(string, grid, is_validate)
       word_upper = string.upcase
       word = word_upper.chars
@@ -29,9 +34,9 @@ class GamesController < ApplicationController
       JSON.parse(Net::HTTP.get(uri))
     end
 
+
     @word = params[:word]
-    # puts "#{@word} @word"
-    result = verificated(@word)
-    @response = validate_word(@word, @letters, result['found'])
+    @result = verificated(@word)
+    @response = validate_word(@word, @letters, @result['found'])
   end
 end

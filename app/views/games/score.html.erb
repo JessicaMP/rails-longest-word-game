@@ -1,6 +1,6 @@
 <h1>Result</h1>
 <%= @response.html_safe %>
 
-<p>Score: <%= @word.size * 10 %> points </p>
+<p class="<%= @result['found'] === true ? "" : "d-none" %>">Score: <%= @word.size * 10 %> points </p>
 
 <%= link_to "Play again", new_path %>
